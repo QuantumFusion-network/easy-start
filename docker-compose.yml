@@ -26,3 +26,18 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/home/prometheus/prometheus.yml
     restart: always
+
+  grafana:
+    image: grafana/grafana:9.4.7
+    user: ":"
+    ports:
+      - "80:3000"
+    volumes:
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./grafana/dashboards:/etc/dashboards
+      - ./grafana/alerts.yml:/etc/grafana/provisioning/alerting/alerts.yml
+      - ./grafana/alertmanager.json:/etc/grafana/provisioning/alerting/alertmanager.json
+      - ./data/grafana:/var/lib/grafana
+    restart: unless-stopped

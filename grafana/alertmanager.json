@@ -1,0 +1,16 @@
+{
+  "template_files": {},
+  "template_file_provenances": {},
+  "alertmanager_config": {
+    "route": {
+      "receiver": "grafana-default-email",
+      "group_by": [
+        "grafana_folder",
+        "alertname"
+      ]
+    },
+    "templates": null,
+    "receivers": [
+    ]
+  }
+}
