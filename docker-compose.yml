@@ -1,0 +1,28 @@
+services:
+  qf_node:
+    image: andor/qf-node:997f600
+    container_name: qf_node
+    volumes:
+      - ./data:/data
+    ports:
+      - 9944:9944
+      - 30334:30334
+      - 9615:9615
+    restart: unless-stopped
+    command:  >
+      ./qf-node
+      --chain=qf-devnet
+      --base-path /data
+      --prometheus-external
+      --prometheus-port 9615
+
+  prometheus:
+    image: prom/prometheus:v2.34.0
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/home/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/home/prometheus/prometheus.yml
+    restart: always
